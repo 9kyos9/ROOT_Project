@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // ⚠️ 사용자가 제공한 API 키와 격자 좌표를 반영했습니다.
+// change
 const SERVICE_KEY = encodeURIComponent('5297ae5429122e0b56cef39cd7ad0da87089357e66c37c006de3694900b28c1f');
 
 // API 엔드포인트 (파이썬에서 사용하신 URL을 반영했습니다.)
