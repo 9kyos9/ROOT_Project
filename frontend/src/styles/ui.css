@@ -1,0 +1,551 @@
+/* UI Styles */
+
+/* Planner Page CSS 요소들 */
+.page {
+  padding: 24px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.grid-2 {
+  margin-top: var(--gap);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gap);
+  align-items: start;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.cardTitle {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover { filter: brightness(0.98); }
+
+.btnPrimary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+.btnGhost {
+  background: transparent;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: white;
+}
+
+.muted { color: var(--muted); }
+
+.sticky {
+  position: sticky;
+  top: 16px;
+}
+
+/* HomePage CSS 요소들 */
+/* Home page */
+.pageHome {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brandMark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--primary-weak), #ffffff);
+}
+
+.brandTitle {
+  font-weight: 800;
+}
+
+.brandSub {
+  font-size: 13px;
+}
+
+.topActions {
+  display: flex;
+  gap: 10px;
+}
+
+.hero {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 22px;
+  align-items: center;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+}
+
+.heroAccent {
+  color: var(--primary);
+}
+
+.heroDesc {
+  margin-top: 14px;
+  max-width: 54ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.heroCtas {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.heroBadges {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.previewCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  background: white;
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: #fafafa;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: white;
+}
+
+.previewTitle {
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.previewBody {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 12px;
+  padding: 12px;
+}
+
+.previewLeft {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.previewMap {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  height: 220px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.mapGrid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#e5e7eb 1px, transparent 1px),
+    linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+  background-size: 18px 18px;
+  opacity: 0.6;
+}
+
+.mapRouteRec {
+  position: absolute;
+  left: 18px;
+  top: 40px;
+  width: 80%;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--primary);
+  transform: rotate(12deg);
+}
+
+.mapRouteShort {
+  position: absolute;
+  left: 24px;
+  top: 110px;
+  width: 65%;
+  height: 3px;
+  border-radius: 999px;
+  background: #9ca3af;
+  transform: rotate(-8deg);
+  opacity: 0.9;
+}
+
+.previewFooter {
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  background: #fafafa;
+}
+
+.skeletonLine,
+.skeletonBox,
+.skeletonBtn {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: linear-gradient(90deg, #f3f4f6, #ffffff, #f3f4f6);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonLine {
+  height: 12px;
+}
+
+.skeletonBox {
+  height: 120px;
+}
+
+.skeletonBtn {
+  height: 38px;
+}
+
+.w60 { width: 60%; }
+.w70 { width: 70%; }
+.w80 { width: 80%; }
+
+@keyframes shimmer {
+  0% { background-position: 0% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.section {
+  margin-top: 36px;
+}
+
+.sectionTitle {
+  margin: 0 0 14px 0;
+  font-size: 20px;
+}
+
+.cards3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+.featureCard {
+  display: grid;
+  gap: 8px;
+}
+
+.featureIcon {
+  font-size: 22px;
+}
+
+.featureTitle {
+  font-weight: 800;
+}
+
+.steps {
+  display: grid;
+  gap: 12px;
+}
+
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.stepNum {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: #fafafa;
+  font-weight: 800;
+}
+
+.stepTitle {
+  font-weight: 800;
+}
+
+.finalCta {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.finalTitle {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 18px 0 8px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .cards3 {
+    grid-template-columns: 1fr;
+  }
+  .previewBody {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* PlannerForm */
+.plannerForm {
+  display: grid;
+  gap: 18px;
+}
+
+.formSection {
+  display: grid;
+  gap: 10px;
+}
+
+.sectionTitle {
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.segBtn {
+  padding: 8px 14px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.segBtn.active {
+  background: var(--primary-weak);
+  color: var(--primary);
+}
+
+.input {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: white;
+}
+
+.chipRemove {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.sliderRow {
+  display: grid;
+  gap: 6px;
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.sliderValue {
+  font-weight: 700;
+}
+
+.formActions {
+  margin-top: 6px;
+  display: grid;
+  gap: 8px;
+}
+
+.full {
+  width: 100%;
+}
+
+.hint {
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ComparisonPanel */
+.comparisonPanel {
+  display: grid;
+  gap: 14px;
+}
+
+.metrics {
+  display: grid;
+  gap: 12px;
+}
+
+.metricCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  background: #fafafa;
+  display: grid;
+  gap: 10px;
+}
+
+.metricLabel {
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.metricValues {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.metricRec,
+.metricShort {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+}
+
+.metricValue {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.metricUnit {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.metricSub {
+  font-size: 11px;
+}
+
+.metricVs {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.metricDelta {
+  margin-top: 2px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.deltaGood {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.deltaBad {
+  color: #9ca3af;
+}
+
+.panelNote {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+}
