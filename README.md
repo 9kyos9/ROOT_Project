@@ -1,4 +1,4 @@
-# Oracle Project [ROOT]
+# Oracle Project [Ko-ROOT]
 Creating Customised Route for Foreign Tourists Visiting South Korea
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
