@@ -1,36 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PlannerForm from "../components/planner/PlannerForm";
 import MapView from "../components/planner/MapView";
 import ComparisonPanel from "../components/planner/ComparisonPanel";
 import { getRoutes } from "../api/routesApi";
+import { touristSpots } from "../data/touristSpots";
+
+// 북촌한옥마을 좌표 (고정 출발지)
+const BUKCHON_START_LOCATION = {
+  lat: 37.5831,
+  lng: 126.9820,
+  name: "북촌한옥마을",
+  address: "서울특별시 종로구 계동길 37"
+};
 
 export default function PlannerPage() {
-  const [startMode, setStartMode] = useState("current"); // current | custom
-  const [startInput, setStartInput] = useState("");
   const [selectedPlaces, setSelectedPlaces] = useState([]);
-  const [weights, setWeights] = useState({
-    scenery: 5,
-    crowd: 5,
-    cost: 5,
-  });
-
+  const [season, setSeason] = useState("summer"); // summer | winter
   const [routes, setRoutes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const start =
-    startMode === "current"
-      ? { mode: "current" }
-      : { mode: "custom", value: startInput };
+  // 출발지는 북촌한옥마을로 고정
+  const startLocation = BUKCHON_START_LOCATION;
 
   const onGenerate = async () => {
-  setIsLoading(true);
+    if (selectedPlaces.length === 0) {
+      alert("관광지를 하나 이상 선택해주세요.");
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       const result = await getRoutes({
-        start,
+        start: {
+          lat: startLocation.lat,
+          lng: startLocation.lng,
+        },
         places: selectedPlaces,
-        weights,
+        season,
       });
       setRoutes(result);
     } catch (e) {
@@ -55,14 +63,10 @@ export default function PlannerPage() {
         <div style={{ display: "grid", gap: 16 }}>
           <div className="card">
             <PlannerForm
-              startMode={startMode}
-              setStartMode={setStartMode}
-              startInput={startInput}
-              setStartInput={setStartInput}
               selectedPlaces={selectedPlaces}
               setSelectedPlaces={setSelectedPlaces}
-              weights={weights}
-              setWeights={setWeights}
+              season={season}
+              setSeason={setSeason}
               onGenerate={onGenerate}
               isLoading={isLoading}
             />
@@ -70,7 +74,7 @@ export default function PlannerPage() {
 
           <div className="card">
             <MapView
-              start={start}
+              start={startLocation}
               selectedPlaces={selectedPlaces}
               routes={routes}
             />
