@@ -112,13 +112,13 @@
   gap: 10px;
 }
 
-.hero {
+/* .hero {
   margin-top: 18px;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 22px;
   align-items: center;
-}
+} */
 
 .heroTitle {
   margin: 0;
