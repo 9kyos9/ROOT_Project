@@ -79,24 +79,24 @@ export default function MapView({ start, selectedPlaces, routes }) {
     }).filter(coord => coord !== null);
   }, [routes?.recommended?.polyline]);
 
-  // 최단 경로는 현재 사용하지 않음 (추천 경로만 표시)
-  // const shortestLine = useMemo(() => {
-  //   if (!routes?.shortest?.polyline) return [];
-  //   
-  //   return routes.shortest.polyline.map((coord) => {
-  //     if (Array.isArray(coord)) {
-  //       return coord.length >= 2 ? [coord[0], coord[1]] : null;
-  //     }
-  //     if (typeof coord === 'object' && coord !== null) {
-  //       return coord.lat !== undefined && coord.lng !== undefined 
-  //         ? [coord.lat, coord.lng]
-  //         : coord.lat !== undefined && coord.lon !== undefined
-  //         ? [coord.lat, coord.lon]
-  //         : null;
-  //     }
-  //     return null;
-  //   }).filter(coord => coord !== null);
-  // }, [routes?.shortest?.polyline]);
+  // 최단 경로 (회색 점선)
+  const shortestLine = useMemo(() => {
+    if (!routes?.shortest?.polyline) return [];
+    
+    return routes.shortest.polyline.map((coord) => {
+      if (Array.isArray(coord)) {
+        return coord.length >= 2 ? [coord[0], coord[1]] : null;
+      }
+      if (typeof coord === 'object' && coord !== null) {
+        return coord.lat !== undefined && coord.lng !== undefined 
+          ? [coord.lat, coord.lng]
+          : coord.lat !== undefined && coord.lon !== undefined
+          ? [coord.lat, coord.lon]
+          : null;
+      }
+      return null;
+    }).filter(coord => coord !== null);
+  }, [routes?.shortest?.polyline]);
 
   // 지도 범위 계산 (모든 마커와 경로를 포함)
   const bounds = useMemo(() => {
@@ -114,8 +114,14 @@ export default function MapView({ start, selectedPlaces, routes }) {
       }
     });
     
-    // 경로 좌표 (추천 경로만)
+    // 경로 좌표 (추천 경로 + 최단 경로)
     recommendedLine.forEach(coord => {
+      if (coord && coord.length >= 2) {
+        allPoints.push(coord);
+      }
+    });
+    
+    shortestLine.forEach(coord => {
       if (coord && coord.length >= 2) {
         allPoints.push(coord);
       }
@@ -133,7 +139,7 @@ export default function MapView({ start, selectedPlaces, routes }) {
       [Math.min(...lats), Math.min(...lngs)],
       [Math.max(...lats), Math.max(...lngs)]
     ];
-  }, [start, selectedPlaces, recommendedLine]);
+  }, [start, selectedPlaces, recommendedLine, shortestLine]);
 
   // 지도 중심 결정
   const center = useMemo(() => {
@@ -151,7 +157,7 @@ export default function MapView({ start, selectedPlaces, routes }) {
       <h2 style={{ margin: "0 0 8px 0" }}>지도</h2>
       
       {/* 경로 정보 표시 */}
-      {routes?.recommended && (
+      {routes && (
         <div style={{ 
           marginBottom: 8, 
           padding: 8, 
@@ -159,11 +165,19 @@ export default function MapView({ start, selectedPlaces, routes }) {
           borderRadius: 4,
           fontSize: "0.875rem"
         }}>
-          <div>
-            <span style={{ fontWeight: "bold", color: "#0066cc" }}>추천 경로:</span>{" "}
-            {routes.recommended.distanceKm}km · {routes.recommended.durationMin}분 · 
-            점수: {routes.recommended.score?.toFixed(1) || "N/A"}
-          </div>
+          {routes.recommended && (
+            <div style={{ marginBottom: 4 }}>
+              <span style={{ fontWeight: "bold", color: "#0066cc" }}>계절별 경로:</span>{" "}
+              {routes.recommended.distanceKm}km · {routes.recommended.durationMin}분 · 
+              점수: {routes.recommended.score?.toFixed(1) || "N/A"}
+            </div>
+          )}
+          {routes.shortest && (
+            <div>
+              <span style={{ fontWeight: "bold", color: "#666" }}>최단 경로:</span>{" "}
+              {routes.shortest.distanceKm}km · {routes.shortest.durationMin}분
+            </div>
+          )}
         </div>
       )}
 
@@ -206,26 +220,25 @@ export default function MapView({ start, selectedPlaces, routes }) {
           </Marker>
         ))}
 
-        {/* 추천 경로 (파란색 굵은 선) */}
+        {/* 계절별 경로 (빨간색 굵은 선) - Best (Max score within detour) */}
         {recommendedLine.length > 0 && (
           <Polyline 
             positions={recommendedLine} 
-            color="#0066cc" 
-            weight={5}
-            opacity={0.8}
+            color="#d62728" 
+            weight={6}
+            opacity={0.9}
           />
         )}
 
-        {/* 최단 경로는 현재 사용하지 않음 */}
-        {/* {shortestLine.length > 0 && (
+        {/* 최단 경로 (회색 선) - Baseline (Shortest length) */}
+        {shortestLine.length > 0 && (
           <Polyline
             positions={shortestLine}
-            color="#666"
-            weight={3}
-            opacity={0.6}
-            dashArray="10, 5"
+            color="#7f7f7f"
+            weight={5}
+            opacity={0.7}
           />
-        )} */}
+        )}
       </MapContainer>
       
       {/* 범례 */}
@@ -246,8 +259,12 @@ export default function MapView({ start, selectedPlaces, routes }) {
           <span>관광지</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <div style={{ width: 30, height: 4, backgroundColor: "#0066cc" }}></div>
-          <span>추천 경로</span>
+          <div style={{ width: 30, height: 6, backgroundColor: "#d62728", opacity: 0.9 }}></div>
+          <span>계절별 경로 (추천)</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <div style={{ width: 30, height: 5, backgroundColor: "#7f7f7f", opacity: 0.7 }}></div>
+          <span>최단 경로</span>
         </div>
       </div>
     </div>

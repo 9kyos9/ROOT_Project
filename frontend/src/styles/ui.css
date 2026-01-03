@@ -96,6 +96,7 @@
   font-weight: 900;
   letter-spacing: 0.5px;
   background: linear-gradient(135deg, var(--primary-weak), #ffffff);
+  font-size: 10px;
 }
 
 .brandTitle {
@@ -273,6 +274,45 @@
 @keyframes shimmer {
   0% { background-position: 0% 0; }
   100% { background-position: -200% 0; }
+}
+
+@keyframes routeDraw {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes routeDrawPath {
+  0% {
+    stroke-dashoffset: 250;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
 }
 
 .section {
